@@ -43,6 +43,8 @@ public:
     {
     }
 
+    virtual ~BaseMenu() { }
+
     string GetTitle() const { return title; }
 
     virtual void Command() = 0; // !
@@ -57,6 +59,13 @@ public:
     PopupMenu(const string& s)
         : BaseMenu { s }
     {
+    }
+
+    ~PopupMenu()
+    {
+        for (auto e : menus) {
+            delete e; // !!!
+        }
     }
 
     void AddMenu(BaseMenu* p) { menus.push_back(p); }
@@ -121,4 +130,8 @@ int main()
     p2->AddMenu(new MenuItem("음색 설정"));
 
     root->Command();
+
+    delete root;
 }
+
+// Ownership - 소유권
