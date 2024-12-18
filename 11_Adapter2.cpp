@@ -19,13 +19,14 @@ public:
     {
     }
 
-    void Show() const { cout << data << endl; }
+    void Show2() const { cout << data << endl; }
 };
 
 // Adapter Pattern
 // => 인터페이스를 변경해서, 새로운 클래스처럼 보이게하는 설계 방법
 
 // 1) 상속
+// => 부모가 제공하는 모든 인터페이스가 외부에 노출됩니다.
 class Text : public TextView, public Shape {
 public:
     Text(const string& s)
@@ -35,7 +36,7 @@ public:
 
     void Draw() const override
     {
-        TextView::Show(); // !!!
+        TextView::Show2(); // !!!
     }
 };
 
