@@ -27,7 +27,8 @@ public:
 
 // 1) 상속
 // => 부모가 제공하는 모든 인터페이스가 외부에 노출됩니다.
-class Text : public TextView, public Shape {
+// class Text : public TextView, public Shape {
+class Text : private TextView, public Shape {
 public:
     Text(const string& s)
         : TextView { s }
