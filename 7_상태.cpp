@@ -6,6 +6,7 @@ using namespace std;
 // 1) 조건 분기
 // => 새로운 아이템이 추가되면 조건 분기 문이 수정되어야 한다.
 //    "OCP를 만족할 수 없습니다."
+// => Replace type code with Strategy or State
 
 class Hero {
     int item;
