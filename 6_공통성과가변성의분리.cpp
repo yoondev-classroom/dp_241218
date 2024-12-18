@@ -3,21 +3,69 @@
 #include <vector>
 using namespace std;
 
+#include <mutex>
+
 class Shape {
+protected:
+    mutex lock;
+
 public:
     virtual ~Shape() { } // !!!
 
-    virtual void Draw() const = 0;
+    // 변하지 않는 것은 부모가 비가상함수를 통해 제공하고,
+    // 변하는 것은 가상함수를 통해 자식이 재정의하도록 합니다.
+    // => Design Pattern
+    //    "Template Method Pattern"
+    // => C++
+    //     NVI(Non Virtual Interface)
+    void Draw()
+    {
+        lock.lock();
+        DrawImpl();
+        lock.unlock();
+    }
+
+    virtual void DrawImpl() = 0;
 };
+
+// * 요구사항: Draw()는 동기화되어야 합니다.
+// * 공통성과 가변성의 분리
+// = 변하는 것과 변하지 않는 것은 분리되어야 합니다.
+// = 변하는 것을 가상 함수를 통해 분리할 수 있습니다.
 
 class Rect : public Shape {
 public:
-    void Draw() const override { cout << "Draw Rect" << endl; }
+#if 0
+    void Draw() override
+    {
+        lock.lock();
+        cout << "Draw Rect" << endl;
+        lock.unlock();
+    }
+
+#endif
+
+    void DrawImpl() override
+    {
+        cout << "Draw Rect" << endl;
+    }
 };
 
 class Circle : public Shape {
 public:
-    void Draw() const override { cout << "Draw Circle" << endl; }
+#if 0
+    void Draw() override
+    {
+        lock.lock();
+        cout << "Draw Circle" << endl;
+        lock.unlock();
+    }
+#endif
+
+    void DrawImpl() override
+    {
+        cout << "Draw Circle" << endl;
+    }
 };
 
 int main()
