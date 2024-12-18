@@ -25,6 +25,7 @@ public:
         lock.unlock();
     }
 
+protected:
     virtual void DrawImpl() = 0;
 };
 
@@ -44,7 +45,7 @@ public:
     }
 
 #endif
-
+protected:
     void DrawImpl() override
     {
         cout << "Draw Rect" << endl;
@@ -61,7 +62,7 @@ public:
         lock.unlock();
     }
 #endif
-
+protected:
     void DrawImpl() override
     {
         cout << "Draw Circle" << endl;
