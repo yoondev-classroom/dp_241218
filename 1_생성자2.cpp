@@ -27,4 +27,8 @@ int main()
 {
     // Animal a; // 컴파일 오류!
     Dog d; // OK!
+
+    // 객체는 생성할 수 없지만, 포인터나 참조 타입은 만들 수 있습니다.
+    Animal* p = &d;
+    Animal& r = d;
 }

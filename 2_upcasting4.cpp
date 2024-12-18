@@ -8,7 +8,7 @@ public:
 };
 class Dog : public Animal {
 public:
-    void Cry() { cout << "Dog::Cry()" << endl; }
+    void Cry() { cout << "Dog::Cry()" << endl; } // 자식 클래스의 고유의 기능
 };
 
 int main()

@@ -30,6 +30,8 @@ int main()
     Base* p = new Derived;
 
     // delete p; // 컴파일러는 p의 타입을 보고, 소멸자를 호출하는 코드를 삽입합니다. - 정적 바인딩
+    // delete static_cast<Derived*>(p);
+
     delete p;
     // 소멸자가 가상함수 이므로, 가상함수테이블을 통해 실제 객체의 소멸자를 호출합니다. - 동적 바인딩
 }
