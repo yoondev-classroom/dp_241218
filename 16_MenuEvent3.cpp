@@ -10,6 +10,20 @@ public:
     void ExitProgram() { cout << "ExitProgram" << endl; } // Program::ExitProgram
 };
 
+// void (*f)()
+void foo()
+{
+}
+
+// 1. 일반 함수 포인터를 사용할 수 없습니다.
+// 2. 특정한 타입에 종속적으로 만들어져서,
+//   다른 클래스의 멤버 함수를 호출할 수 없습니다.
+// => 범용 함수 포인터
+// => 간접층 도입
+//  1) 일반 함수 포인터의 역활을 수행하는 클래스
+//  2) 멤버 함수 포인터의 역활을 수행하는 클래스(템플릿)
+//  => 공통의 부모
+
 class MenuItem {
     string title;
 
