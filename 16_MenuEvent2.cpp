@@ -42,7 +42,13 @@ public:
 };
 
 class Program : public IMenuListener {
+
 public:
+    enum EventID {
+        OPEN_FILE = 100,
+        EXIT_PROGRAM
+    };
+
     void OpenFile() { cout << "OpenFile" << endl; }
     void ExitProgram() { cout << "ExitProgram" << endl; }
 
@@ -51,10 +57,10 @@ public:
         cout << "메뉴 이벤트 수신" << endl;
 
         switch (id) {
-        case 100:
+        case EventID::OPEN_FILE:
             OpenFile();
             break;
-        case 101:
+        case EventID::EXIT_PROGRAM:
             ExitProgram();
             break;
         }
@@ -65,8 +71,8 @@ int main()
 {
     Program prog;
 
-    MenuItem m1 { 100, "파일 열기" };
-    MenuItem m2 { 101, "프로그램 종료" };
+    MenuItem m1 { Program::EventID::OPEN_FILE, "파일 열기" };
+    MenuItem m2 { Program::EventID::EXIT_PROGRAM, "프로그램 종료" };
 
     m1.SetListener(&prog);
     m2.SetListener(&prog);
