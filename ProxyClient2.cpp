@@ -3,6 +3,7 @@
 #include "dp.h"
 #include "ICalc2.h"
 
+// 참조 계수 기반으로 객체의 수명을 관리합니다.
 class Calc : public ICalc {
     int server;
     int ref;

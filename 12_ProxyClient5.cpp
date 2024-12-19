@@ -11,7 +11,7 @@ int main()
     calc->AddRef();
 
     ICalc* other = calc; // 규칙 2. 포인터를 복사하는 경우, 참조 계수 증가
-    calc->AddRef();
+    other->AddRef();
 
     std::cout << calc->Add(10, 20) << std::endl;
     std::cout << calc->Sub(100, 50) << std::endl;
@@ -68,3 +68,27 @@ int main()
     std::cout << calc->Add(10, 20) << std::endl;
     std::cout << calc->Sub(100, 50) << std::endl;
 }
+
+// Obj-C
+//  : MRC(Manual Ref Counting)
+//  => ARC(Auto Ref Counting) / Swift
+//   - 컴파일러가 코드를 분석해서, 자동으로 참조 계수 관련 코드를 삽입합니다.
+
+// 참조 계수의 문제점
+// 1) 순환 참조로 인해, 절대 파괴되지 않는 경우가 발생합니다.
+//  - 참조 계수 라이브러리는 두가지 종류의 스마트 포인터를 제공합니다.
+//    sp(Strong Pointer): 참조할 때, 참조 계수 증가
+//    wp(Weak Pointer): 참조할 때, 참조 계수 증가되지 않습니다.
+//                참조하는 객체가 유효한지 여부를 판단할 수 있는 기능을 제공합니다.
+//                 - auto niling
+
+//  - C++은 객체의 수명을 참조 계수로 관리할 수 있는 스마트 포인터를 제공합니다.
+//    shared_ptr / weak_ptr
+
+// 2) 참조 계수의 증감은 스레드 안전해야 합니다.
+//  => Atomic Operations(원자적 연산을 통해 구현되어 있습니다.)
+
+// C++은 2가지 종류의 스마트 포인터를 제공하고 있습니다.
+// => 소유권(Ownership)
+// 1) shared_ptr / weak_ptr - 참조 계수 기반
+// 2) unique_ptr - 일반 스마트 포인터
