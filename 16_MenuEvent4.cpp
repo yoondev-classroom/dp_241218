@@ -55,13 +55,66 @@ public:
     }
 };
 
+class MenuItem {
+    string title;
+
+    ICommand* pCommand;
+
+public:
+    void SetHandler(ICommand* p)
+    {
+        pCommand = p;
+    }
+
+    string GetTitle() const { return title; }
+
+    MenuItem(const string& s)
+        : title { s }
+    {
+    }
+
+    void Command()
+    {
+        cout << GetTitle() << " 선택됨" << endl;
+        pCommand->Call(); // !!!
+    }
+};
+
+int main()
+{
+    MenuItem m1 { "파일 열기" };
+    MenuItem m2 { "프로그램 종료" };
+
+    Dialog dlg;
+
+    FunctionCommand fc { &foo };
+    m1.SetHandler(&fc);
+
+    MemberCommand mc { &dlg, &Dialog::Close };
+    m2.SetHandler(&mc);
+
+    m1.Command();
+    m2.Command();
+}
+
+#if 0
 int main()
 {
     Dialog dlg;
 
     MemberCommand mc { &dlg, &Dialog::Close };
     mc.Call();
+
+    FunctionCommand fc { &foo };
+    fc.Call();
+
+    ICommand* pCommand = &mc;
+    pCommand->Call();
+
+    pCommand = &fc;
+    pCommand->Call();
 }
+#endif
 
 #if 0
 int main()
