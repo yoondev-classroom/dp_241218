@@ -16,21 +16,30 @@ public:
 };
 
 // 관찰의 대상 - Subject
-class Table {
-    int data[5];
+// - Subject의 로직은 변하지 않습니다.
+// - 별도의 부모 클래스를 통해 변하지 않는 로직을 제공해줍니다.
+class Subject {
     vector<IObserver*> observers;
 
 public:
-    Table() { memset(data, 0, sizeof(data)); }
+    virtual ~Subject() { }
 
-    void Notify()
+    void Notify(void* p)
     {
         for (auto e : observers) {
-            e->OnUpdate(data);
+            e->OnUpdate(p);
         }
     }
 
     void Attach(IObserver* p) { observers.push_back(p); }
+};
+
+class Table : public Subject {
+    int data[5];
+
+public:
+    Table() { memset(data, 0, sizeof(data)); }
+
     void Edit()
     {
         while (1) {
@@ -41,7 +50,7 @@ public:
             cout << "data: ";
             cin >> data[index];
 
-            Notify();
+            Notify(data);
         }
     }
 };
