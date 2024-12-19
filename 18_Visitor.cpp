@@ -7,7 +7,23 @@ using namespace std;
 // 방문자 패턴
 // => 복합 객체의 내부 구조에 상관없이 요소 연산을 추가할 수 있는 객체
 
-class BaseMenu {
+class PopupMenu;
+class MenuItem;
+class IMenuVisitor {
+public:
+    virtual ~IMenuVisitor() { }
+
+    virtual void Visit(PopupMenu* p) = 0;
+    virtual void Visit(MenuItem* p) = 0;
+};
+
+class IMenuAcceptor {
+public:
+    virtual ~IMenuAcceptor() { }
+    virtual void Accept(IMenuVisitor* visitor) = 0;
+};
+
+class BaseMenu : public IMenuAcceptor {
     string title;
 
 public:
@@ -19,6 +35,7 @@ public:
     virtual ~BaseMenu() { }
 
     string GetTitle() const { return title; }
+    void SetTitle(const string& s) { title = s; } // !!!
 
     virtual void Command() = 0; // !
 };
@@ -27,6 +44,15 @@ class PopupMenu : public BaseMenu {
     vector<BaseMenu*> menus;
 
 public:
+    void Accept(IMenuVisitor* visitor) override
+    {
+        visitor->Visit(this); // 자신을 전달합니다.
+
+        for (auto e : menus) {
+            e->Accept(visitor); // !!!
+        }
+    }
+
     PopupMenu(const string& s)
         : BaseMenu { s }
     {
@@ -76,11 +102,33 @@ public:
     {
     }
 
+    void Accept(IMenuVisitor* visitor) override
+    {
+        visitor->Visit(this); // 자신을 전달합니다.
+    }
+
     void Command() override
     {
         cout << GetTitle() << " 선택됨" << endl;
         getchar();
         getchar();
+    }
+};
+
+//-- 메뉴 시스템에 다양한 기능을 추가하는 방문자를 제공합니다.
+// => 방문자 패턴을 적용하면, 기존의 클래스의 캡슐화 정책을 위배할 수 있습니다.
+class TitleDecorator : public IMenuVisitor {
+public:
+    void Visit(PopupMenu* p) override
+    {
+        string s = p->GetTitle() + " >";
+        p->SetTitle(s); // !!!
+    }
+
+    void Visit(MenuItem* p) override
+    {
+        string s = p->GetTitle() + " *";
+        p->SetTitle(s);
     }
 };
 
@@ -101,6 +149,9 @@ int main()
 
     p2->AddMenu(new MenuItem("볼륨 설정"));
     p2->AddMenu(new MenuItem("음색 설정"));
+
+    TitleDecorator d;
+    root->Accept(&d);
 
     root->Command();
 
