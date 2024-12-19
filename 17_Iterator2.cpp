@@ -2,6 +2,9 @@
 #include <iostream>
 using namespace std;
 
+// 1) 인터페이스 기반 반복자
+//  : Java, C# ...
+
 // 반복자는 컨테이너의 설계자가 제공합니다.
 template <typename T>
 class IEnumerator {
