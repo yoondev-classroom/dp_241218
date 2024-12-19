@@ -132,6 +132,7 @@ public:
     }
 };
 
+#if 0
 int main()
 {
     PopupMenu* root = new PopupMenu("MENUBAR");
@@ -156,4 +157,20 @@ int main()
     root->Command();
 
     delete root;
+}
+#endif
+
+// 컨테이너에 방문자를 제공할 수 있지만, 기존의 문법을 통해서 동일한 목적을
+// 어렵지 않게 달성할 수 있습니다.
+int main()
+{
+    vector<int> v = { 1, 2, 3, 4, 5 };
+
+    for (auto& e : v) {
+        e *= 2;
+    }
+
+    for (auto e : v) {
+        cout << e << endl;
+    }
 }
