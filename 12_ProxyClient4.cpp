@@ -27,7 +27,7 @@ int main()
     calc->AddRef();
 
     ICalc* other = calc; // 규칙 2. 포인터를 복사하는 경우, 참조 계수 증가
-    calc->AddRef();
+    other->AddRef();
 
     std::cout << calc->Add(10, 20) << std::endl;
     std::cout << calc->Sub(100, 50) << std::endl;
