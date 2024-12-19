@@ -3,6 +3,7 @@
 #define USING_GUI
 #include "dp.h"
 
+// Stub
 class Server {
 public:
     int Add(int a, int b) { return a + b; }

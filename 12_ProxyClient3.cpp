@@ -25,6 +25,9 @@ ICalc* LoadProxy()
 
 int main()
 {
+    // Windows: CoCreateInstance
+    // Android: getSystemService
+
     ICalc* calc = LoadProxy();
     // 객체를 생성하는 행위는 강한 결합이 형성됩니다.
     // 객체를 직접 생성하면, 인터페이스를 기반으로 하여도, 강한 결합입니다.

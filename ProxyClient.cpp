@@ -23,3 +23,13 @@ CreateCalc()
 }
 
 // $ build.bat ProxyClient.cpp /LD
+
+// C
+// void foo() {}      => _foo
+// void foo(int a) {} => _foo
+
+// C++
+// => C++은 인자 정보에 따라서 함수의 이름을 변경합니다.
+//   : Name Mangling(컴파일러마다 구현 방식이 다릅니다.)
+// void foo() {}      => _Zwfoov
+// void foo(int a) {} => _Zwfooi
