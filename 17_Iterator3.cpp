@@ -3,6 +3,10 @@
 using namespace std;
 
 // C++은 반복자를 배열에서 포인터의 역활과 동일하게 사용할 수 있도록 설계되어 있습니다.
+// 1) 반복자의 모든 연산은 인라인 최적화가 가능합니다. - 가상 함수가 아닙니다.
+// 2) 배열을 다루는 방식과 컨테이너를 다루는 방식이 동일합니다.
+//    컨테이너를 다루는 모든 연산을 배열과 함께 사용할 수 있습니다.
+
 #if 1
 template <typename T>
 struct Node {
@@ -27,20 +31,25 @@ public:
     }
 
     // 참조: *p
-    T& operator*() { return current->data; }
+    inline T& operator*() { return current->data; }
 
     // 다음 위치 이동: ++p
-    void operator++()
+    // void operator++()
+
+    inline SListIterator& operator++()
     {
         current = current->next;
+        return *this; // !!
+        // 연쇄 호출이 가능합니다.
     }
 
     // 비교: == / !=
-    bool operator!=(const SListIterator& rhs)
+    inline bool operator!=(const SListIterator& rhs)
     {
         return current != rhs.current;
     }
-    bool operator==(const SListIterator& rhs)
+
+    inline bool operator==(const SListIterator& rhs)
     {
         return current == rhs.current;
     }
@@ -69,6 +78,18 @@ public:
 
 #include <list>
 
+#if 0
+// 연산자 오버로딩을 구현할 때, 기본 타입이 동작하는 방식과 동일하게 구현되어야 합니다.
+int main()
+{
+    int n = 0;
+    ++ ++n;
+
+    cout << n << endl;
+}
+#endif
+
+#if 1
 int main()
 {
     SList<int> s;
@@ -87,6 +108,8 @@ int main()
         ++p1;
     }
 }
+#endif
+
 #endif
 
 // C++은 반개 구간을 사용합니다.
