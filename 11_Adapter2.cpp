@@ -19,7 +19,7 @@ public:
     {
     }
 
-    void Show2() const { cout << data << endl; }
+    void Show() const { cout << data << endl; }
 };
 
 // Adapter Pattern
@@ -37,7 +37,7 @@ public:
 
     void Draw() const override
     {
-        TextView::Show2(); // !!!
+        TextView::Show(); // !!!
     }
 };
 

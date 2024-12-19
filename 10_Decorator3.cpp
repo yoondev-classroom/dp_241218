@@ -65,3 +65,7 @@ int main()
     FlowerDecorator fd2(&fd);
     fd2.Draw();
 }
+
+// Design Pattern에서 [재귀적 포함]을 사용하는 패턴 2가지
+// 1) Composite Pattern
+// 2) Decorator Pattern

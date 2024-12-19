@@ -11,7 +11,7 @@ int main()
     //                |                             |
     vector<int> v = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
-    // Iterator
+    // Iterator(반복자)
     vector<int>::iterator p1 = v.begin(); // 첫번째 요소를 가르키는 포인터의 역활을 수행하는 객체
     vector<int>::iterator p2 = v.end();
     // 마지막 요소를 가르키는 포인터의 역활을 수행하는 객체

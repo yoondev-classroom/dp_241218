@@ -70,7 +70,7 @@ public:
 
     void AddMenu(BaseMenu* p) { menus.push_back(p); }
 
-    void Command()
+    void Command() override
     {
         while (1) {
             system("cls");
@@ -105,7 +105,7 @@ public:
     {
     }
 
-    void Command()
+    void Command() override
     {
         cout << GetTitle() << " 선택됨" << endl;
         getchar();
@@ -120,7 +120,9 @@ int main()
     PopupMenu* p2 = new PopupMenu("소리 설정");
 
     root->AddMenu(p1);
-    root->AddMenu(p2);
+    // root->AddMenu(p2);
+
+    p1->AddMenu(p2);
 
     p1->AddMenu(new MenuItem("해상도 설정"));
     p1->AddMenu(new MenuItem("색상 설정"));
