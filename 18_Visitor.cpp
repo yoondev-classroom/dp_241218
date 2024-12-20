@@ -5,7 +5,7 @@
 using namespace std;
 
 // 방문자 패턴
-// => 복합 객체의 내부 구조에 상관없이 요소 연산을 추가할 수 있는 객체
+// => 복합 객체(컨테이너)의 내부 구조에 상관없이 요소 연산을 추가할 수 있는 객체
 
 class PopupMenu;
 class MenuItem;
@@ -132,7 +132,7 @@ public:
     }
 };
 
-#if 0
+#if 1
 int main()
 {
     PopupMenu* root = new PopupMenu("MENUBAR");
@@ -160,6 +160,7 @@ int main()
 }
 #endif
 
+#if 0
 // 컨테이너에 방문자를 제공할 수 있지만, 기존의 문법을 통해서 동일한 목적을
 // 어렵지 않게 달성할 수 있습니다.
 int main()
@@ -174,3 +175,4 @@ int main()
         cout << e << endl;
     }
 }
+#endif

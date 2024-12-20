@@ -30,6 +30,8 @@ public:
     {
     }
 
+    // C++의 반복자는 연산자 오버로딩을 통해 제공됩니다.
+
     // 참조: *p
     inline T& operator*() { return current->data; }
 
@@ -107,6 +109,16 @@ int main()
         cout << *p1 << endl;
         ++p1;
     }
+
+    for (auto e : s) {
+        cout << e << endl;
+    }
+
+    int data[] = { 1, 2, 3, 4, 5 };
+    // 반복자를 지원하면, ranged-for 문법을 사용할 수 있습니다.
+    for (auto e : data) {
+        cout << e << endl;
+    }
 }
 #endif
 
@@ -142,8 +154,8 @@ int main()
 int main()
 {
     // double data[5] = { 1, 2, 3, 4, 5 };
-    // vector<int> data = { 1, 2, 3, 4, 5 };
-    list<int> data = { 1, 2, 3, 4, 5 };
+    vector<int> data = { 1, 2, 3, 4, 5 };
+    // list<int> data = { 1, 2, 3, 4, 5 };
 
     // begin(): 시작 위치
     // end() : 끝 다음 위치(past the end)

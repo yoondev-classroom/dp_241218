@@ -7,6 +7,7 @@ using namespace std;
 
 // 복잡한 C의 API를 클래스로 래핑하면 좀더 편리하게 사용할 수 있습니다.
 
+// RAII
 class NetworkInit {
 public:
     NetworkInit()
