@@ -98,6 +98,7 @@ int main()
 {
     vector<Shape*> shapes;
     stack<ICommand*> undo;
+    stack<ICommand*> redo;
 
     ICommand* pCommand = nullptr;
     while (1) {
@@ -113,11 +114,18 @@ int main()
             pCommand = new DrawCommand { shapes };
         }
 
+        else if (cmd == 8) {
+            pCommand = redo.top();
+            redo.pop();
+        }
+
         else if (cmd == 0) {
             ICommand* undoCommand = undo.top();
             undo.pop();
 
             undoCommand->Undo();
+
+            redo.push(undoCommand); // !!
         }
 
         if (pCommand) {
