@@ -100,12 +100,35 @@ public:
     }
 };
 
+// 여러개의 명령을 묶는 매크로 명령도 만들수 있습니다.
+// => Composite Pattern(재귀적 포함 + 동일시 인터페이스)
+class MacroCommand : public ICommand {
+public:
+    vector<ICommand*> commands;
+
+public:
+    void AddCommand(ICommand* p) { commands.push_back(p); }
+
+    void Execute() override
+    {
+        for (auto e : commands) {
+            e->Execute();
+        }
+    }
+};
+
 #include <stack>
 
 int main()
 {
     vector<Shape*> shapes;
     stack<ICommand*> undo;
+
+    MacroCommand mc;
+    mc.AddCommand(new AddRectCommand { shapes });
+    mc.AddCommand(new AddCircleCommand { shapes });
+    mc.AddCommand(new DrawCommand { shapes });
+    mc.Execute();
 
     ICommand* pCommand = nullptr;
     while (1) {
