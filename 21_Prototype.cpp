@@ -31,16 +31,6 @@ public:
 
 int main()
 {
-    Circle* c = new Circle;
-
-    // Circle* copy = static_cast<Circle*>(c->Clone());
-
-    Circle* copy = c->Clone();
-}
-
-#if 0
-int main()
-{
     vector<Shape*> shapes;
 
     while (1) {
