@@ -4,6 +4,7 @@
 using namespace std;
 
 // 이벤트가 발생하였을 때, 처리할 수 있는 핸들러가 여러개 존재할 수 있습니다.
+// - 자신이 처리하지 못하는 경우, 다음 핸들러를 통해 처리할 수 있도록합니다.
 
 class Handler {
     Handler* next;
