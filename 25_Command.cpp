@@ -43,6 +43,15 @@ public:
     }
 
     void Execute() override { shapes.push_back(new Rect); }
+    bool CanUndo() override { return true; }
+
+    void Undo() override
+    {
+        Shape* p = shapes.back();
+        delete p;
+
+        shapes.pop_back(); // 요소 제거
+    }
 };
 
 class AddCircleCommand : public ICommand {
@@ -55,6 +64,15 @@ public:
     }
 
     void Execute() override { shapes.push_back(new Circle); }
+    bool CanUndo() override { return true; }
+
+    void Undo() override
+    {
+        Shape* p = shapes.back();
+        delete p;
+
+        shapes.pop_back(); // 요소 제거
+    }
 };
 
 class DrawCommand : public ICommand {
@@ -74,12 +92,16 @@ public:
     }
 };
 
+#include <stack>
+
 int main()
 {
     vector<Shape*> shapes;
+    stack<ICommand*> undo;
 
     ICommand* pCommand = nullptr;
     while (1) {
+        pCommand = nullptr;
         int cmd;
         cin >> cmd;
 
@@ -91,8 +113,19 @@ int main()
             pCommand = new DrawCommand { shapes };
         }
 
+        else if (cmd == 0) {
+            ICommand* undoCommand = undo.top();
+            undo.pop();
+
+            undoCommand->Undo();
+        }
+
         if (pCommand) {
             pCommand->Execute();
+
+            if (pCommand->CanUndo()) {
+                undo.push(pCommand);
+            }
         }
     }
 }
