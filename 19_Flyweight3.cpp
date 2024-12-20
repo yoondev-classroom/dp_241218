@@ -27,6 +27,8 @@ class Image {
     }
 
 public:
+    // 1) 수명을 관리해주어야 합니다. - shared_ptr
+    // 2) Immutable(불변)해야 합니다.
     static Image* Create(const string& url)
     {
         // return new Image { url };
