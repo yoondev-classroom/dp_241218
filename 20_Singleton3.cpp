@@ -99,8 +99,17 @@ void foo()
     // 지역 객체가 존재하는 함수에서 예외가 발생하더라도, 소멸자의 호출은 보장됩니다.
 }
 
+#include <mutex>
+
 int main()
 {
+    mutex m;
+    // m.lock();
+    // m.unlock();
+
+    lock_guard lg { m };
+    // RAII 기반으로 락을 관리하는 클래스
+
     try {
         foo();
     } catch (...) {
